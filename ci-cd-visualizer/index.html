@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Interactive CI/CD Pipeline Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>CI/CD Pipeline Visualizer</h1>
+    <div class="controls">
+      <button id="addStageBtn">＋ Add Stage</button>
+      <button id="runBtn" class="primary">▶ Run Pipeline</button>
+      <button id="resetBtn">⟲ Reset</button>
+    </div>
+  </header>
+
+  <section id="instructions" class="instructions">
+    <h2>How to Use</h2>
+    <ol>
+      <li><b>Drag</b> a stage (Build, Test, Deploy, or Custom) from the Stage Palette onto the canvas to create a pipeline stage.</li>
+      <li><b>Move</b> stages by dragging them around the canvas.</li>
+      <li><b>Connect</b> two stages by clicking one, then clicking another to create a directed connection (arrow).</li>
+      <li><b>Delete</b> a stage using the ✖ button on the stage node.</li>
+      <li><b>Run</b> the pipeline with the ▶ Run Pipeline button to simulate execution and view logs.</li>
+      <li><b>Reset</b> the pipeline with the ⟲ Reset button.</li>
+    </ol>
+    <p>Tip: You can also add a custom stage with the ＋ Add Stage button.</p>
+  </section>
+
+  <main>
+    <section id="leftPane">
+      <div class="palette">
+        <h3>Stage Palette</h3>
+        <div class="stage-card draggable" data-type="build" draggable="true">Build</div>
+        <div class="stage-card draggable" data-type="test" draggable="true">Test</div>
+        <div class="stage-card draggable" data-type="deploy" draggable="true">Deploy</div>
+      </div>
+
+      <div class="log-box">
+        <h3>Pipeline Logs</h3>
+        <div id="logs" class="logs"></div>
+      </div>
+    </section>
+
+    <section id="canvasPane">
+      <div class="canvas-label" style="margin-bottom:4px; font-weight:600; color:var(--accent); font-size:1.05rem;">Pipeline Canvas</div>
+      <div id="canvasToolbar" class="canvas-toolbar">
+        <small>Drag stages onto the canvas. Click two stages to connect them.</small>
+      </div>
+
+      <div id="pipelineCanvas" class="pipeline-canvas">
+        <!-- SVG for connections -->
+        <svg id="svgConnections" class="svg-connections"></svg>
+
+        <!-- stage container -->
+        <div id="stagesContainer" class="stages-container"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Made for demo • Editable • Host on GitHub Pages</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
