@@ -219,3 +219,59 @@ footer{padding:8px 20px;text-align:center;color:var(--muted);font-size:12px}
   #canvasPane{order:1}
   .stages-container{justify-content:flex-start}
 }
+
+/* Responsive improvements for mobile */
+@media (max-width: 700px) {
+  body {
+    font-size: 1.05em;
+    padding: 0;
+  }
+  header, .instructions, footer {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  main {
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 4px 12px 4px;
+  }
+  #leftPane {
+    width: 100%;
+    order: 2;
+    gap: 10px;
+  }
+  #canvasPane {
+    order: 1;
+    width: 100%;
+    min-width: 0;
+  }
+  .pipeline-canvas {
+    min-width: 600px;
+    width: 100vw;
+    overflow-x: auto;
+    padding: 8px 0 8px 0;
+    margin-bottom: 8px;
+  }
+  .stages-container {
+    min-width: 600px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 10px;
+    align-content: flex-start;
+  }
+  .stage-node {
+    min-width: 180px;
+    max-width: 90vw;
+    font-size: 1em;
+  }
+  .controls {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+  button, .btn-icon {
+    font-size: 1.1em;
+    min-height: 38px;
+    min-width: 38px;
+  }
+}

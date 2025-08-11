@@ -202,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let dragging = false;
     let onMouseMove, onMouseUp;
 
+    // Mouse events
     el.addEventListener('mousedown', e => {
       if (e.target.closest('button')) return;
       dragging = true;
@@ -234,6 +235,44 @@ document.addEventListener('DOMContentLoaded', function() {
       };
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
+    });
+
+    // Touch events for mobile
+    el.addEventListener('touchstart', function(e) {
+      if (e.target.closest('button')) return;
+      if (e.touches.length !== 1) return;
+      dragging = true;
+      const touch = e.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      origX = parseFloat(el.style.left);
+      origY = parseFloat(el.style.top);
+      el.style.cursor = 'grabbing';
+      document.body.style.userSelect = 'none';
+
+      function onTouchMove(ev) {
+        if (!dragging || ev.touches.length !== 1) return;
+        const t = ev.touches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        el.style.left = `${Math.max(8, origX + dx)}px`;
+        el.style.top = `${Math.max(8, origY + dy)}px`;
+        const id = el.dataset.id;
+        nodes[id].x = parseFloat(el.style.left);
+        nodes[id].y = parseFloat(el.style.top);
+        renderConnections();
+      }
+      function onTouchEnd() {
+        if (dragging) {
+          dragging = false;
+          el.style.cursor = 'grab';
+          document.body.style.userSelect = '';
+          document.removeEventListener('touchmove', onTouchMove);
+          document.removeEventListener('touchend', onTouchEnd);
+        }
+      }
+      document.addEventListener('touchmove', onTouchMove);
+      document.addEventListener('touchend', onTouchEnd);
     });
   }
 
@@ -526,6 +565,7 @@ function makeNodeDraggable(el) {
   let dragging = false;
   let onMouseMove, onMouseUp;
 
+  // Mouse events
   el.addEventListener('mousedown', e => {
     if (e.target.closest('button')) return;
     dragging = true;
@@ -558,6 +598,44 @@ function makeNodeDraggable(el) {
     };
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
+  });
+
+  // Touch events for mobile
+  el.addEventListener('touchstart', function(e) {
+    if (e.target.closest('button')) return;
+    if (e.touches.length !== 1) return;
+    dragging = true;
+    const touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    origX = parseFloat(el.style.left);
+    origY = parseFloat(el.style.top);
+    el.style.cursor = 'grabbing';
+    document.body.style.userSelect = 'none';
+
+    function onTouchMove(ev) {
+      if (!dragging || ev.touches.length !== 1) return;
+      const t = ev.touches[0];
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+      el.style.left = `${Math.max(8, origX + dx)}px`;
+      el.style.top = `${Math.max(8, origY + dy)}px`;
+      const id = el.dataset.id;
+      nodes[id].x = parseFloat(el.style.left);
+      nodes[id].y = parseFloat(el.style.top);
+      renderConnections();
+    }
+    function onTouchEnd() {
+      if (dragging) {
+        dragging = false;
+        el.style.cursor = 'grab';
+        document.body.style.userSelect = '';
+        document.removeEventListener('touchmove', onTouchMove);
+        document.removeEventListener('touchend', onTouchEnd);
+      }
+    }
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchend', onTouchEnd);
   });
 }
 
