@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
       { id: 'build', label: 'Code Build and Test', x: 260, y: 100 },
       { id: 'scan', label: 'Scan and Containerise', x: 520, y: 100 },
       { id: 'system', label: 'System Test', x: 520, y: 260 },
-      { id: 'deputy', label: 'Deputy Compliance', x: 780, y: 100 },
+      { id: 'deputy', label: 'Security Compliance', x: 780, y: 100 },
       { id: 'perf', label: 'Performance Test', x: 780, y: 260 },
       { id: 'complete', label: 'Complete Build', x: 1040, y: 180 }
     ];
